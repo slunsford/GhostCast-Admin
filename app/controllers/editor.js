@@ -409,6 +409,7 @@ export default Controller.extend({
         this.set('post.customExcerpt', this.get('post.customExcerptScratch'));
         this.set('post.footerInjection', this.get('post.footerExcerptScratch'));
         this.set('post.headerInjection', this.get('post.headerExcerptScratch'));
+        this.set('post.episodeNumber'), this.get('post.episodeNumber');
         this.set('post.metaTitle', this.get('post.metaTitleScratch'));
         this.set('post.metaDescription', this.get('post.metaDescriptionScratch'));
         this.set('post.ogTitle', this.get('post.ogTitleScratch'));

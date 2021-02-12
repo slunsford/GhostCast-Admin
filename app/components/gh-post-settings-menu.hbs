@@ -108,6 +108,13 @@
                 {{/unless}}
 
                 <ul class="nav-list nav-list-block">
+                    <li class="nav-list-item" {{action "showSubview" "podcast-data"}} data-test-button="podcast-data">
+                        <button type="button">
+                            <b>Podcast episode data</b>
+                            <span>Extra data for podcast feeds</span>
+                        </button>
+                        {{svg-jar "arrow-right"}}
+                    </li>
                     <li class="nav-list-item" {{action "showSubview" "meta-data"}} data-test-button="meta-data">
                         <button type="button">
                             <b>Meta data</b>
@@ -178,6 +185,94 @@
         <div class="{{if this.isViewingSubview 'settings-menu-pane-in' 'settings-menu-pane-out-right'}} settings-menu settings-menu-pane">
             <div class="active">
                 {{#if this.isViewingSubview}}
+                    {{#if (eq this.subview "podcast-data")}}
+                        <div class="settings-menu-header subview">
+                            <button aria-label="Back" {{action "closeSubview"}} class="back settings-menu-header-action" data-test-button="close-psm-subview">{{svg-jar "arrow-left"}}<span class="hidden">Back</span></button>
+                            <h4>Podcast episode data</h4>
+                            <div style="width:23px;"></div>
+                        </div>
+
+                        <div class="settings-menu-content">
+                            <form {{action "discardEnter" on="submit"}}>
+                                <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="episodeNumber">
+                                    <label for="episode-number">Episode number</label>
+                                    <GhTextInput
+                                        @class="post-setting-episode-number"
+                                        @id="episode-number"
+                                        @name="post-setting-episode-number"
+                                        @type="number"
+                                        @value={{readonly this.episodeNumberScratch}}
+                                        @input={{action (mut this.episodeNumberScratch) value="target.value"}}
+                                        @focus-out={{action "setEpisodeNumber" this.episodeNumberScratch}}
+                                        @stopEnterKeyDownPropagation={{true}}
+                                        data-test-field="episode-number" />
+                                    <GhErrorMessage @errors={{this.post.errors}} @property="episode-number" />
+                                </GhFormGroup>
+
+                                <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="episodeDescription">
+                                    <label for="episode-description">Episode description</label>
+                                    <GhTextarea
+                                        @class="post-setting-episode-description"
+                                        @id="episode-description"
+                                        @name="post-setting-episode-description"
+                                        @placeholder={{this.episodeDescription}}
+                                        @value={{readonly this.episodeDescriptionScratch}}
+                                        @input={{action (mut this.episodeDescriptionScratch) value="target.value"}}
+                                        @focus-out={{action "setEpisodeDescription" this.episodeDescriptionScratch}}
+                                        @stopEnterKeyDownPropagation="true"
+                                        data-test-field="episode-description" />
+                                    <p>Recommended: <b>156</b> characters. You’ve used {{gh-count-down-characters this.episodeDescriptionScratch 156}}</p>
+                                    <GhErrorMessage @errors={{this.post.errors}} @property="episode-description" />
+                                </GhFormGroup>
+
+                                <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="audio-url">
+                                    <label for="audio-url">Audio file URL</label>
+                                    <GhTextInput
+                                        @class="post-setting-audio-url"
+                                        @id="audio-url"
+                                        @name="post-setting-audio-url"
+                                        @value={{readonly this.audioUrlScratch}}
+                                        @input={{action (mut this.audioUrlScratch) value="target.value"}}
+                                        @focus-out={{action "setAudioUrl" this.audioUrlScratch}}
+                                        @stopEnterKeyDownPropagation="true"
+                                        data-test-field="audio-url" />
+                                    <GhErrorMessage @errors={{this.post.errors}} @property="audio-url" />
+                                        {{! TODO: Audio file preview }}
+                                </GhFormGroup>
+
+                                <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="audioDuration">
+                                    <label for="audio-duration">Duration</label>
+                                    <GhTextInput
+                                        @class="post-setting-audio-duration"
+                                        @id="audio-duration"
+                                        @name="post-setting-audio-duration"
+                                        @type="number"
+                                        @value={{readonly this.audioDurationScratch}}
+                                        @input={{action (mut this.audioDurationScratch) value="target.value"}}
+                                        @focus-out={{action "setAudioDuration" this.audioDurationScratch}}
+                                        @stopEnterKeyDownPropagation="true"
+                                        data-test-field="audio-duration" />
+                                    <GhErrorMessage @errors={{this.post.errors}} @property="audio-duration" />
+                                </GhFormGroup>
+
+                                <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="audioSize">
+                                    <label for="audio-size">File size (bytes)</label>
+                                    <GhTextInput
+                                        @class="post-setting-audio-size"
+                                        @id="audio-size"
+                                        @name="post-setting-audio-size"
+                                        @type="number"
+                                        @value={{readonly this.audioSizeScratch}}
+                                        @input={{action (mut this.audioSizeScratch) value="target.value"}}
+                                        @focus-out={{action "setAudioSize" this.audioSizeScratch}}
+                                        @stopEnterKeyDownPropagation="true"
+                                        data-test-field="audio-size" />
+                                    <GhErrorMessage @errors={{this.post.errors}} @property="audio-size" />
+                                </GhFormGroup>
+                            </form>
+                        </div>
+                    {{/if}}
+
                     {{#if (eq this.subview "meta-data")}}
                         <div class="settings-menu-header subview">
                             <button aria-label="Back" {{action "closeSubview"}} class="back settings-menu-header-action" data-test-button="close-psm-subview">{{svg-jar "arrow-left"}}<span class="hidden">Back</span></button>

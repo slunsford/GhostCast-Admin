@@ -11,6 +11,7 @@ export default BaseValidator.create({
         'canonicalUrl',
         'codeinjectionHead',
         'codeinjectionFoot',
+        'episodeNumber',
         'metaTitle',
         'metaDescription',
         'ogtitle',
@@ -30,6 +31,26 @@ export default BaseValidator.create({
 
         if (!validator.isLength(model.title || '', 0, 255)) {
             model.errors.add('title', 'Title cannot be longer than 255 characters.');
+            this.invalidate();
+        }
+    },
+
+
+
+    audioUrl(model) {
+        let validatorOptions = {require_protocol: true};
+        let urlRegex = new RegExp(/^(\/|[a-zA-Z0-9-]+:)/);
+        let url = model.audioUrl;
+
+        if (isBlank(url)) {
+            return;
+        }
+
+        if (url.match(/\s/) || (!validator.isURL(url, validatorOptions) && !url.match(urlRegex))) {
+            model.errors.add('audioUrl', 'Please enter a valid URL');
+            this.invalidate();
+        } else if (!validator.isLength(model.audioUrl, 0, 2000)) {
+            model.errors.add('audioUrl', 'Audio File URL is too long, max 2000 chars');
             this.invalidate();
         }
     },
@@ -76,6 +97,13 @@ export default BaseValidator.create({
     codeinjectionHead(model) {
         if (!validator.isLength(model.codeinjectionHead || '', 0, 65535)) {
             model.errors.add('codeinjectionHead', 'Header code cannot be longer than 65535 characters.');
+            this.invalidate();
+        }
+    },
+
+    episodeNumber(model) {
+        if (!validator.isNumber(model.episodeNumber)) {
+            model.errors.add('episodeNumber', 'Episode number must be an integer.');
             this.invalidate();
         }
     },

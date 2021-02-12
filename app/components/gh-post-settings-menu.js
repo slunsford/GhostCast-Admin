@@ -32,6 +32,11 @@ export default Component.extend(SettingsMenuMixin, {
     customExcerptScratch: alias('post.customExcerptScratch'),
     codeinjectionFootScratch: alias('post.codeinjectionFootScratch'),
     codeinjectionHeadScratch: alias('post.codeinjectionHeadScratch'),
+    episodeNumberScratch: alias('post.episodeNumberScratch'),
+    episodeDescriptionScratch: alias('post.episodeDescriptionScratch'),
+    audioUrlScratch: alias('post.audioUrlScratch'),
+    audioDurationScratch: alias('post.audioDurationScratch'),
+    audioSizeScratch: alias('post.audioSizeScratch'),
     metaDescriptionScratch: alias('post.metaDescriptionScratch'),
     metaTitleScratch: alias('post.metaTitleScratch'),
     ogDescriptionScratch: alias('post.ogDescriptionScratch'),
@@ -40,6 +45,7 @@ export default Component.extend(SettingsMenuMixin, {
     twitterTitleScratch: alias('post.twitterTitleScratch'),
     slugValue: boundOneWay('post.slug'),
 
+    episodeDescription: or('episodeDescriptionScratch', 'customExcerptScratch', ''),
     facebookDescription: or('ogDescriptionScratch', 'customExcerptScratch', 'seoDescription', 'post.excerpt', 'settings.description', ''),
     facebookImage: or('post.ogImage', 'post.featureImage', 'settings.ogImage', 'settings.coverImage'),
     facebookTitle: or('ogTitleScratch', 'seoTitle'),
@@ -244,6 +250,121 @@ export default Component.extend(SettingsMenuMixin, {
             post.set('codeinjectionFoot', code);
 
             return post.validate({property: 'codeinjectionFoot'}).then(() => this.savePost.perform());
+        },
+
+        setEpisodeNumber(episodeNumber) {
+            // Grab the post and current stored episode number
+            let post = this.post;
+            let currentEpisode = post.get('episodeNumber');
+
+            // If the title entered matches the stored episode number, do nothing
+            if (currentEpisode === episodeNumber) {
+                return;
+            }
+
+            // If the title entered is different, set it as the new episode number
+            post.set('episodeNumber', episodeNumber);
+
+            // Make sure the episode number is valid and if so, save it into the post
+            return post.validate({property: 'episodeNumber'}).then(() => {
+                if (post.get('isNew')) {
+                    return;
+                }
+
+                return this.savePost.perform();
+            });
+        },
+
+        setEpisodeDescription(episodeDescription) {
+            // Grab the post and current stored episode number
+            let post = this.post;
+            let currentEpisode = post.get('episodeDescription');
+
+            // If the title entered matches the stored episode number, do nothing
+            if (currentEpisode === episodeDescription) {
+                return;
+            }
+
+            // If the title entered is different, set it as the new episode number
+            post.set('episodeDescription', episodeDescription);
+
+            // Make sure the episode number is valid and if so, save it into the post
+            return post.validate({property: 'episodeDescription'}).then(() => {
+                if (post.get('isNew')) {
+                    return;
+                }
+
+                return this.savePost.perform();
+            });
+        },
+
+        setAudioUrl(value) {
+            // Grab the post and current stored meta description
+            let post = this.post;
+            let currentAudioUrl = post.audioUrl;
+
+            // If the value entered matches the stored value, do nothing
+            if (currentAudioUrl === value) {
+                return;
+            }
+
+            // If the value supplied is different, set it as the new value
+            post.set('audioUrl', value);
+
+            // Make sure the value is valid and if so, save it into the post
+            return post.validate({property: 'audioUrl'}).then(() => {
+                if (post.get('isNew')) {
+                    return;
+                }
+
+                return this.savePost.perform();
+            });
+        },
+
+        setAudioDuration(value) {
+            // Grab the post and current stored meta description
+            let post = this.post;
+            let currentAudioDuration = post.audioDuration;
+
+            // If the value entered matches the stored value, do nothing
+            if (currentAudioDuration === value) {
+                return;
+            }
+
+            // If the value supplied is different, set it as the new value
+            post.set('audioDuration', value);
+
+            // Make sure the value is valid and if so, save it into the post
+            return post.validate({property: 'audioDuration'}).then(() => {
+                if (post.get('isNew')) {
+                    return;
+                }
+
+                return this.savePost.perform();
+            });
+        },
+
+        setAudioSize(value) {
+            // Grab the post and current stored meta description
+            let post = this.post;
+            let currentAudioSize = post.audioSize;
+
+            // If the value entered matches the stored value, do nothing
+            if (currentAudioSize === value) {
+                return;
+            }
+
+            // If the value supplied is different, set it as the new value
+            post.set('audioSize', value);
+
+            // Make sure the value is valid and if so, save it into the post
+            return post.validate({property: 'audioSize'}).then(() => {
+                if (post.get('isNew')) {
+                    return;
+                }
+
+                return this.savePost.perform();
+            });
         },
 
         setMetaTitle(metaTitle) {
