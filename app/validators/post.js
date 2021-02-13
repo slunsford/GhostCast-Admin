@@ -36,6 +36,31 @@ export default BaseValidator.create({
         }
     },
 
+    audioDuration(model) {
+        let validatorOptions = {require_protocol: true};
+        let durationRegex = new RegExp(/^(\d+|((\d+:)?\d\d:)?\d\d)$/);
+        let url = model.audioDuration;
+
+        if (isBlank(url)) {
+            return;
+        }
+
+        if (url.match(/\s/) || (!validator.isURL(url, validatorOptions) && !url.match(durationRegex))) {
+            model.errors.add('audioDuration', 'Please enter a valid duration in seconds or in (hh:)mm:ss format');
+            this.invalidate();
+        } else if (!validator.isLength(model.audioDuration, 0, 24)) {
+            model.errors.add('audioDuration', 'Duration is too long, max 24 chars');
+            this.invalidate();
+        }
+    },
+
+    audioSize(model) {
+        if (!validator.isNumber(model.audioSize)) {
+            model.errors.add('audioSize', 'File Size must be an integer.');
+            this.invalidate();
+        }
+    },
+
     audioUrl(model) {
         let validatorOptions = {require_protocol: true};
         let urlRegex = new RegExp(/^(\/|[a-zA-Z0-9-]+:)/);
@@ -100,16 +125,23 @@ export default BaseValidator.create({
         }
     },
 
-    episodeTitle(model) {
-        if (!validator.isLength(model.episodeTitle || '', 0, 300)) {
-            model.errors.add('episodeTitle', 'Episode Title cannot be longer than 300 characters.');
+    episodeDescription(model) {
+        if (!validator.isLength(model.episodeDescription || '', 0, 4000)) {
+            model.errors.add('episodeDescription', 'Episode Description cannot be longer than 4000 characters.');
             this.invalidate();
         }
     },
 
     episodeNumber(model) {
         if (!validator.isNumber(model.episodeNumber)) {
-            model.errors.add('episodeNumber', 'Episode number must be an integer.');
+            model.errors.add('episodeNumber', 'Episode Number must be an integer.');
+            this.invalidate();
+        }
+    },
+
+    episodeTitle(model) {
+        if (!validator.isLength(model.episodeTitle || '', 0, 300)) {
+            model.errors.add('episodeTitle', 'Episode Title cannot be longer than 300 characters.');
             this.invalidate();
         }
     },
