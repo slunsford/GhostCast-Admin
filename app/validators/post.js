@@ -54,12 +54,12 @@ export default BaseValidator.create({
         }
     },
 
-    audioSize(model) {
-        if (!validator.isNumber(model.audioSize)) {
-            model.errors.add('audioSize', 'File Size must be an integer.');
-            this.invalidate();
-        }
-    },
+    // audioSize(model) {
+    //     if (!validator.isInteger(model.audioSize)) {
+    //         model.errors.add('audioSize', 'File Size must be an integer.');
+    //         this.invalidate();
+    //     }
+    // },
 
     audioUrl(model) {
         let validatorOptions = {require_protocol: true};
@@ -132,12 +132,12 @@ export default BaseValidator.create({
         }
     },
 
-    episodeNumber(model) {
-        if (!validator.isNumber(model.episodeNumber)) {
-            model.errors.add('episodeNumber', 'Episode Number must be an integer.');
-            this.invalidate();
-        }
-    },
+    // episodeNumber(model) {
+    //     if (!validator.isInteger(model.episodeNumber)) {
+    //         model.errors.add('episodeNumber', 'Episode Number must be an integer.');
+    //         this.invalidate();
+    //     }
+    // },
 
     episodeTitle(model) {
         if (!validator.isLength(model.episodeTitle || '', 0, 300)) {
