@@ -16,6 +16,9 @@
 
 .gh-member-detail-avatar {
     box-shadow: none;
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
 }
 
 .gh-member-avatar-label {
@@ -301,6 +304,13 @@ p.gh-members-list-email {
 
 .gh-members-chart + .content-list .members-list {
     margin-top: var(--main-layout-section-vpadding);
+}
+
+@media  (min-width: 1200px) and (max-width: 1370px) {
+    .members-header .view-actions input.gh-members-list-searchfield {
+        max-width: 130px;
+        min-width: unset;
+    }
 }
 
 @media (max-width: 1100px) {
