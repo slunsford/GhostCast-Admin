@@ -257,12 +257,12 @@ export default Component.extend(SettingsMenuMixin, {
             let post = this.post;
             let currentEpisode = post.get('episodeNumber');
 
-            // If the title entered matches the stored episode number, do nothing
+            // If the number entered matches the stored episode number, do nothing
             if (currentEpisode === episodeNumber) {
                 return;
             }
 
-            // If the title entered is different, set it as the new episode number
+            // If the number entered is different, set it as the new episode number
             post.set('episodeNumber', episodeNumber);
 
             // Make sure the episode number is valid and if so, save it into the post
@@ -276,19 +276,19 @@ export default Component.extend(SettingsMenuMixin, {
         },
 
         setEpisodeDescription(episodeDescription) {
-            // Grab the post and current stored episode number
+            // Grab the post and current stored episode description
             let post = this.post;
             let currentEpisode = post.get('episodeDescription');
 
-            // If the title entered matches the stored episode number, do nothing
+            // If the description entered matches the stored episode description, do nothing
             if (currentEpisode === episodeDescription) {
                 return;
             }
 
-            // If the title entered is different, set it as the new episode number
+            // If the description entered is different, set it as the new episode description
             post.set('episodeDescription', episodeDescription);
 
-            // Make sure the episode number is valid and if so, save it into the post
+            // Make sure the episode description is valid and if so, save it into the post
             return post.validate({property: 'episodeDescription'}).then(() => {
                 if (post.get('isNew')) {
                     return;
@@ -299,7 +299,7 @@ export default Component.extend(SettingsMenuMixin, {
         },
 
         setAudioUrl(value) {
-            // Grab the post and current stored meta description
+            // Grab the post and current stored audio URL
             let post = this.post;
             let currentAudioUrl = post.audioUrl;
 
@@ -322,7 +322,7 @@ export default Component.extend(SettingsMenuMixin, {
         },
 
         setAudioDuration(value) {
-            // Grab the post and current stored meta description
+            // Grab the post and current stored duration
             let post = this.post;
             let currentAudioDuration = post.audioDuration;
 
@@ -345,7 +345,7 @@ export default Component.extend(SettingsMenuMixin, {
         },
 
         setAudioSize(value) {
-            // Grab the post and current stored meta description
+            // Grab the post and current stored file size
             let post = this.post;
             let currentAudioSize = post.audioSize;
 
@@ -395,15 +395,15 @@ export default Component.extend(SettingsMenuMixin, {
             let post = this.post;
             let currentDescription = post.get('metaDescription');
 
-            // If the title entered matches the stored meta title, do nothing
+            // If the value entered matches the stored value, do nothing
             if (currentDescription === metaDescription) {
                 return;
             }
 
-            // If the title entered is different, set it as the new meta title
+            // If the value entered is different, set it as the new value
             post.set('metaDescription', metaDescription);
 
-            // Make sure the meta title is valid and if so, save it into the post
+            // Make sure the value is valid and if so, save it into the post
             return post.validate({property: 'metaDescription'}).then(() => {
                 if (post.get('isNew')) {
                     return;
