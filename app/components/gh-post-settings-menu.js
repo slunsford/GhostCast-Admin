@@ -46,7 +46,7 @@ export default Component.extend(SettingsMenuMixin, {
     twitterTitleScratch: alias('post.twitterTitleScratch'),
     slugValue: boundOneWay('post.slug'),
 
-    {{! TODO: Convert seconds to hh:mm:ss }}
+    // TODO: Convert seconds to hh:mm:ss
 
     episodeDescription: or('episodeDescriptionScratch', 'customExcerptScratch', 'post.excerpt', ''),
     episodeTitle: or('episodeTitleScratch', 'seoTitle', 'post.title'),
@@ -353,7 +353,7 @@ export default Component.extend(SettingsMenuMixin, {
             let post = this.post;
             let currentAudioDuration = post.audioDuration;
 
-            {{! TODO: Convert hh:mm:ss to seconds }}
+            // TODO: Convert hh:mm:ss to seconds
 
             // If the value entered matches the stored value, do nothing
             if (currentAudioDuration === value) {
