@@ -239,7 +239,7 @@
                                         @focus-out={{action "setEpisodeDescription" this.episodeDescriptionScratch}}
                                         @stopEnterKeyDownPropagation="true"
                                         data-test-field="episode-description" />
-                                    <p>Recommended: <b>156</b> characters. You’ve used {{gh-count-down-characters this.episodeDescriptionScratch 156}}</p>
+                                    <p>Max: <b>4000</b> characters. You’ve used {{gh-count-down-characters this.episodeDescriptionScratch 4000}}</p>
                                     <GhErrorMessage @errors={{this.post.errors}} @property="episode-description" />
                                 </GhFormGroup>
 
