@@ -194,6 +194,24 @@
 
                         <div class="settings-menu-content">
                             <form {{action "discardEnter" on="submit"}}>
+                                {{!--
+                                <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="episodeTitle">
+                                    <label for="episode-title">Episode title</label>
+                                    <GhTextInput
+                                        @class="post-setting-episode-title"
+                                        @id="episode-title"
+                                        @name="post-setting-episode-title"
+                                        @placeholder={{this.episodeTitle}}
+                                        @value={{readonly this.episodeTitleScratch}}
+                                        @input={{action (mut this.episodeTitleScratch) value="target.value"}}
+                                        @focus-out={{action "setEpisodeTitle" this.episodeTitleScratch}}
+                                        @stopEnterKeyDownPropagation={{true}}
+                                        data-test-field="episode-title" />
+                                    <p>Recommended: <b>70</b> characters. You’ve used {{gh-count-down-characters this.episodeTitleScratch 70}}</p>
+                                    <GhErrorMessage @errors={{this.post.errors}} @property="episode-title" />
+                                </GhFormGroup>
+                                --}}
+
                                 <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="episodeNumber">
                                     <label for="episode-number">Episode number</label>
                                     <GhTextInput

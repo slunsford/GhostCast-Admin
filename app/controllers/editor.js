@@ -409,7 +409,12 @@ export default Controller.extend({
         this.set('post.customExcerpt', this.get('post.customExcerptScratch'));
         this.set('post.footerInjection', this.get('post.footerExcerptScratch'));
         this.set('post.headerInjection', this.get('post.headerExcerptScratch'));
+        this.set('post.episodeTitle'), this.get('post.episodeTitle');
         this.set('post.episodeNumber'), this.get('post.episodeNumber');
+        this.set('post.episodeDescription'), this.get('post.episodeDescription');
+        this.set('post.audioUrl'), this.get('post.audioUrl');
+        this.set('post.audioDuration'), this.get('post.audioDuration');
+        this.set('post.audioSize'), this.get('post.audioSize');
         this.set('post.metaTitle', this.get('post.metaTitleScratch'));
         this.set('post.metaDescription', this.get('post.metaDescriptionScratch'));
         this.set('post.ogTitle', this.get('post.ogTitleScratch'));

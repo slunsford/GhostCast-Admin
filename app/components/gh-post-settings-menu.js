@@ -32,6 +32,7 @@ export default Component.extend(SettingsMenuMixin, {
     customExcerptScratch: alias('post.customExcerptScratch'),
     codeinjectionFootScratch: alias('post.codeinjectionFootScratch'),
     codeinjectionHeadScratch: alias('post.codeinjectionHeadScratch'),
+    episodeTitleScratch: alias('post.episodeTitleScratch'),
     episodeNumberScratch: alias('post.episodeNumberScratch'),
     episodeDescriptionScratch: alias('post.episodeDescriptionScratch'),
     audioUrlScratch: alias('post.audioUrlScratch'),
@@ -45,7 +46,8 @@ export default Component.extend(SettingsMenuMixin, {
     twitterTitleScratch: alias('post.twitterTitleScratch'),
     slugValue: boundOneWay('post.slug'),
 
-    episodeDescription: or('episodeDescriptionScratch', 'customExcerptScratch', ''),
+    episodeDescription: or('episodeDescriptionScratch', 'customExcerptScratch', 'post.excerpt', ''),
+    episodeTitle: or('episodeTitleScratch', 'seoTitle', 'post.title'),
     facebookDescription: or('ogDescriptionScratch', 'customExcerptScratch', 'seoDescription', 'post.excerpt', 'settings.description', ''),
     facebookImage: or('post.ogImage', 'post.featureImage', 'settings.ogImage', 'settings.coverImage'),
     facebookTitle: or('ogTitleScratch', 'seoTitle'),
@@ -250,6 +252,29 @@ export default Component.extend(SettingsMenuMixin, {
             post.set('codeinjectionFoot', code);
 
             return post.validate({property: 'codeinjectionFoot'}).then(() => this.savePost.perform());
+        },
+
+        setEpisodeTitle(episodeTitle) {
+            // Grab the post and current stored episode title
+            let post = this.post;
+            let currentEpisode = post.get('episodeTitle');
+
+            // If the title entered matches the stored episode title, do nothing
+            if (currentEpisode === episodeTitle) {
+                return;
+            }
+
+            // If the title entered is different, set it as the new episode title
+            post.set('episodeTitle', episodeTitle);
+
+            // Make sure the episode title is valid and if so, save it into the post
+            return post.validate({property: 'episodeTitle'}).then(() => {
+                if (post.get('isNew')) {
+                    return;
+                }
+
+                return this.savePost.perform();
+            });
         },
 
         setEpisodeNumber(episodeNumber) {
