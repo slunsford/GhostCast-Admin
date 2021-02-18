@@ -132,12 +132,20 @@ export default BaseValidator.create({
         }
     },
 
-    // episodeNumber(model) {
-    //     if (!validator.isInteger(model.episodeNumber)) {
-    //         model.errors.add('episodeNumber', 'Episode Number must be an integer.');
-    //         this.invalidate();
-    //     }
-    // },
+    episodeNumber(model) {
+        let validatorOptions = {require_protocol: true};
+        let integerRegex = new RegExp(/^\d+$/);
+        let episodeNumber = model.episodeNumber;
+
+        if (isBlank(episodeNumber)) {
+            return;
+        }
+
+        if (episodeNumber.match(/\s/) || !episodeNumber.match(integerRegex)) {
+            model.errors.add('episodeNumber', 'Please enter a valid number');
+            this.invalidate();
+        }
+    },
 
     episodeTitle(model) {
         if (!validator.isLength(model.episodeTitle || '', 0, 300)) {
