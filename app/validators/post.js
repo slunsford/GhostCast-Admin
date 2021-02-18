@@ -39,13 +39,13 @@ export default BaseValidator.create({
     audioDuration(model) {
         let validatorOptions = {require_protocol: true};
         let durationRegex = new RegExp(/^(\d+|((\d+:)?\d\d:)?\d\d)$/);
-        let url = model.audioDuration;
+        let duration = model.audioDuration;
 
-        if (isBlank(url)) {
+        if (isBlank(duration)) {
             return;
         }
 
-        if (url.match(/\s/) || (!validator.isURL(url, validatorOptions) && !url.match(durationRegex))) {
+        if (duration.match(/\s/) || !duration.match(durationRegex)) {
             model.errors.add('audioDuration', 'Please enter a valid duration in seconds or in (hh:)mm:ss format');
             this.invalidate();
         } else if (!validator.isLength(model.audioDuration, 0, 24)) {
