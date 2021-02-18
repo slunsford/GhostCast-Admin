@@ -731,6 +731,7 @@
 /* Link input bar */
 .kg-link-input {
     min-width: 225px; /* Same width as text toolbar */
+    caret-color: auto;
 }
 
 .kg-input-bar-close {
@@ -1036,6 +1037,32 @@
 
 .kg-email-card p:first-of-type {
     margin-top: 0;
+}
+
+.kg-paywall-separator {
+    display: flex;
+    align-items: center;
+    height: 1em;
+    text-align: center;
+    color: var(--midlightgrey-d1);
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.kg-paywall-separator::before,
+.kg-paywall-separator::after {
+    content: '';
+    flex: 1;
+    border-top: 1px solid #dfe1e3;
+}
+
+.kg-paywall-separator:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.kg-paywall-separator:not(:empty)::after {
+    margin-left: .5em;
 }
 
 
